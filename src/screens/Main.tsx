@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
 import {
+  Alert,
   FlatList,
   Keyboard,
   KeyboardAvoidingView,
@@ -14,7 +14,6 @@ import {
   changeInput,
   completeTodo,
   deleteTodo,
-  Filter,
   Todo
 } from '../redux/features/todoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -30,10 +29,21 @@ export default function Main() {
     Keyboard.dismiss();
   };
 
+  const handleDeleteTodo = (id: number) => {
+    Alert.alert(
+      'Do you want to delete this Todo?',
+      `Delete "${todos[id].title}"`,
+      [
+        { text: 'Cancel', onPress: () => null },
+        { text: 'Delete', onPress: () => dispatch(deleteTodo(id)) }
+      ]
+    );
+  };
+
   const renderItem = ({ item }: { item: Todo }) => (
     <TodoItem
       item={item}
-      onPress={() => dispatch(deleteTodo(item.id))}
+      onPress={() => handleDeleteTodo(item.id)}
       onValueChange={() => dispatch(completeTodo(item.id))}
     />
   );
