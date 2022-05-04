@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'pink',
     marginVertical: 8,
     marginHorizontal: 16,
-    padding: 16
+    padding: 16,
+    borderRadius: 4
   },
   todo: {
     flex: 1,

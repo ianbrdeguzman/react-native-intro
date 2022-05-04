@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 8,
     padding: 16,
-    backgroundColor: 'salmon'
+    backgroundColor: 'salmon',
+    borderRadius: 4
   },
   buttonText: {
     color: 'white',

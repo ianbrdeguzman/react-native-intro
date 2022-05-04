@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export enum Filter {
+  ALL = 'all',
+  COMPLETED = 'completed',
+  ACTIVE = 'active'
+}
+
 export interface Todo {
   id: number;
   title: string;
@@ -9,15 +15,17 @@ export interface Todo {
 export interface InitialState {
   todos: Todo[];
   text: string;
+  filter: Filter;
 }
 
 const initialState: InitialState = {
   todos: [
-    { id: 0, title: 'buy groceries', completed: false },
+    { id: 0, title: 'buy groceries', completed: true },
     { id: 1, title: 'wash car', completed: false },
     { id: 2, title: 'study react native', completed: false }
   ],
-  text: ''
+  text: '',
+  filter: Filter.ALL
 };
 
 export const todoSlice = createSlice({
@@ -47,11 +55,14 @@ export const todoSlice = createSlice({
     },
     changeInput: (state, action: PayloadAction<string>) => {
       state.text = action.payload;
+    },
+    changeFilter: (state, action: PayloadAction<Filter>) => {
+      state.filter = action.payload;
     }
   }
 });
 
-export const { addTodo, deleteTodo, completeTodo, changeInput } =
+export const { addTodo, deleteTodo, completeTodo, changeInput, changeFilter } =
   todoSlice.actions;
 
 export default todoSlice.reducer;
