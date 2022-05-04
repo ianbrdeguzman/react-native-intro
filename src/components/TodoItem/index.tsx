@@ -1,6 +1,6 @@
-import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Todo } from '../../redux/features/todoSlice';
 import Checkbox from 'expo-checkbox';
-import { Todo } from '../../../App';
 
 interface TodoItemProps {
   item: Todo;
@@ -14,7 +14,7 @@ export function TodoItem({ onPress, item, onValueChange }: TodoItemProps) {
       <Checkbox
         value={item.completed}
         onValueChange={onValueChange}
-        color="green"
+        color="salmon"
       />
       <Text
         style={[styles.todo, item.completed && styles.completed]}
@@ -22,7 +22,9 @@ export function TodoItem({ onPress, item, onValueChange }: TodoItemProps) {
       >
         {item.title}
       </Text>
-      <Button title="del" onPress={onPress} color="red" />
+      <Pressable onPress={onPress} style={styles.buttonContainer}>
+        <Text style={styles.button}> X </Text>
+      </Pressable>
     </View>
   );
 }
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'lightgray',
+    backgroundColor: 'pink',
     marginVertical: 8,
     marginHorizontal: 16,
     padding: 16
@@ -42,8 +44,16 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   completed: {
-    color: 'green',
+    color: 'gray',
     textDecorationStyle: 'solid',
     textDecorationLine: 'line-through'
+  },
+  buttonContainer: {
+    borderRadius: 50,
+    padding: 4,
+    backgroundColor: 'salmon'
+  },
+  button: {
+    color: 'white'
   }
 });
