@@ -12,6 +12,7 @@ export function FilterGroup() {
       {[Filter.ALL, Filter.COMPLETED, Filter.ACTIVE].map((filterItem) => {
         return (
           <TouchableOpacity
+            key={filterItem}
             style={styles(filterItem === filter).filterItem}
             onPress={() => dispatch(changeFilter(filterItem))}
           >
