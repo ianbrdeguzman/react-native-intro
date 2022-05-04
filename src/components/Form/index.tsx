@@ -13,7 +13,7 @@ export function Form({ text, onChangeText, onPress }: FormProps) {
         style={styles.input}
         onChangeText={onChangeText}
         value={text}
-        placeholder="e.g. Four"
+        placeholder="Add new todo..."
         onSubmitEditing={onPress}
       />
       <Pressable style={styles.buttonContainer} onPress={onPress}>
