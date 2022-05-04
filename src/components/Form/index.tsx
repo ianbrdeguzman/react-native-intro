@@ -1,9 +1,8 @@
-import { Dispatch, SetStateAction } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 interface FormProps {
   text: string;
-  onChangeText: Dispatch<SetStateAction<string>>;
+  onChangeText: (text: string) => void;
   onPress: () => void;
 }
 
@@ -15,10 +14,11 @@ export function Form({ text, onChangeText, onPress }: FormProps) {
         onChangeText={onChangeText}
         value={text}
         placeholder="e.g. Four"
+        onSubmitEditing={onPress}
       />
-      <View style={styles.buttonContainer}>
-        <Button title="ADD TODO" onPress={onPress} color="#fff" />
-      </View>
+      <Pressable style={styles.buttonContainer} onPress={onPress}>
+        <Text style={styles.buttonText}>ADD TODO</Text>
+      </Pressable>
     </View>
   );
 }
@@ -38,8 +38,13 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   buttonContainer: {
-    borderWidth: 1,
     marginTop: 8,
-    backgroundColor: 'blue'
+    padding: 16,
+    backgroundColor: 'salmon'
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 16
   }
 });
