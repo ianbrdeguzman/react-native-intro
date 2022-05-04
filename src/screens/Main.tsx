@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import {
   FlatList,
   Keyboard,
@@ -5,6 +6,7 @@ import {
   StyleSheet,
   Text
 } from 'react-native';
+import { FilterGroup } from '../components/Filter';
 import { Form } from '../components/Form';
 import { TodoItem } from '../components/TodoItem';
 import {
@@ -12,13 +14,15 @@ import {
   changeInput,
   completeTodo,
   deleteTodo,
+  Filter,
   Todo
 } from '../redux/features/todoSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { filterTodos } from '../utils';
 
 export default function Main() {
   const dispatch = useAppDispatch();
-  const { todos, text } = useAppSelector((state) => state.todo);
+  const { todos, text, filter } = useAppSelector((state) => state.todo);
 
   const handleAddTodo = () => {
     if (!text) return;
@@ -36,9 +40,10 @@ export default function Main() {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="height">
+      <FilterGroup />
       {todos.length > 0 ? (
         <FlatList
-          data={todos}
+          data={filterTodos(todos, filter)}
           renderItem={renderItem}
           style={styles.todoList}
         />
