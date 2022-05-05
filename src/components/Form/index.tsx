@@ -1,22 +1,34 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  Keyboard,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
+} from 'react-native';
+import { addTodo, changeInput } from '../../redux/features/todoSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
-interface FormProps {
-  text: string;
-  onChangeText: (text: string) => void;
-  onPress: () => void;
-}
+export function Form() {
+  const dispatch = useAppDispatch();
+  const { text } = useAppSelector((state) => state.todo);
 
-export function Form({ text, onChangeText, onPress }: FormProps) {
+  const handleAddTodo = () => {
+    if (!text) return;
+    dispatch(addTodo(text));
+    Keyboard.dismiss();
+  };
+
   return (
     <View style={styles.formContainer}>
       <TextInput
         style={styles.input}
-        onChangeText={onChangeText}
+        onChangeText={(text) => dispatch(changeInput(text))}
         value={text}
         placeholder="Add new todo..."
-        onSubmitEditing={onPress}
+        onSubmitEditing={handleAddTodo}
       />
-      <Pressable style={styles.buttonContainer} onPress={onPress}>
+      <Pressable style={styles.buttonContainer} onPress={handleAddTodo}>
         <Text style={styles.buttonText}>ADD TODO</Text>
       </Pressable>
     </View>

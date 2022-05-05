@@ -38,7 +38,7 @@ export const todoSlice = createSlice({
       state.todos = [
         ...state.todos,
         {
-          id: state.todos.length + 1,
+          id: state.todos.length,
           title: action.payload,
           completed: false
         }
