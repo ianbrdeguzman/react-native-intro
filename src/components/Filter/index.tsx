@@ -3,6 +3,7 @@ import { changeFilter } from '../../redux/features/todoSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { Filter } from '../../redux/features/todoSlice';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { Theme, useAppTheme } from '../../context/theme';
 
 function getIcon(filter: Filter): string {
   switch (filter) {
@@ -18,6 +19,7 @@ function getIcon(filter: Filter): string {
 export function FilterGroup() {
   const dispatch = useAppDispatch();
   const { filter } = useAppSelector((state) => state.todo);
+  const { theme } = useAppTheme();
 
   return (
     <View style={styles().container}>
@@ -26,15 +28,17 @@ export function FilterGroup() {
           <TouchableOpacity
             key={filterItem}
             style={[
-              styles().filterItem,
-              styles(filterItem === filter).filterItemActive
+              theme === Theme.DARK
+                ? styles(filterItem === filter).filterItemActiveDark
+                : styles(filterItem === filter).filterItemActive,
+              styles().filterItem
             ]}
             onPress={() => dispatch(changeFilter(filterItem))}
           >
             <Icon
               name={getIcon(filterItem)}
               size={16}
-              color={filterItem === filter ? 'white' : 'gray'}
+              color={filterItem === filter ? '#f5f6f7' : 'gray'}
             />
             <Text style={styles(filterItem === filter).filterItemText}>
               {filterItem}
@@ -60,11 +64,17 @@ const styles = (active?: boolean) =>
       borderRadius: 50,
       paddingVertical: 2,
       paddingHorizontal: 16,
-      backgroundColor: active ? 'salmon' : undefined
+      backgroundColor: active ? 'rebeccapurple' : undefined
+    },
+    filterItemActiveDark: {
+      borderRadius: 50,
+      paddingVertical: 2,
+      paddingHorizontal: 16,
+      backgroundColor: active ? '#03dac6' : undefined
     },
     filterItemText: {
       paddingLeft: 2,
       textTransform: 'capitalize',
-      color: active ? 'white' : 'gray'
+      color: active ? '#f5f6f7' : 'gray'
     }
   });
