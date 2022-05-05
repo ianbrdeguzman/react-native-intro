@@ -49,7 +49,6 @@ export function FilterGroup() {
 const styles = (active?: boolean) =>
   StyleSheet.create({
     container: {
-      marginTop: 16,
       flexDirection: 'row',
       justifyContent: 'space-around'
     },
