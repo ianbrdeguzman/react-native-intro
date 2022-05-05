@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { FilterGroup } from '../components/Filter';
 import { Form } from '../components/Form';
+import { Search } from '../components/Search';
 import { TodoItem } from '../components/TodoItem';
 import {
   addTodo,
@@ -21,7 +22,7 @@ import { filterTodos } from '../utils';
 
 export default function Main() {
   const dispatch = useAppDispatch();
-  const { todos, text, filter } = useAppSelector((state) => state.todo);
+  const { todos, text, filter, query } = useAppSelector((state) => state.todo);
 
   const handleAddTodo = () => {
     if (!text) return;
@@ -51,9 +52,10 @@ export default function Main() {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="height">
       <FilterGroup />
+      <Search />
       {todos.length > 0 ? (
         <FlatList
-          data={filterTodos(todos, filter)}
+          data={filterTodos(todos, filter, query)}
           renderItem={renderItem}
           style={styles.todoList}
         />

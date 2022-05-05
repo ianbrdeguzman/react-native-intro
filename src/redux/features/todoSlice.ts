@@ -16,6 +16,7 @@ export interface InitialState {
   todos: Todo[];
   text: string;
   filter: Filter;
+  query: string;
 }
 
 const initialState: InitialState = {
@@ -25,7 +26,8 @@ const initialState: InitialState = {
     { id: 2, title: 'study react native', completed: false }
   ],
   text: '',
-  filter: Filter.ALL
+  filter: Filter.ALL,
+  query: ''
 };
 
 export const todoSlice = createSlice({
@@ -58,11 +60,20 @@ export const todoSlice = createSlice({
     },
     changeFilter: (state, action: PayloadAction<Filter>) => {
       state.filter = action.payload;
+    },
+    changeQuery: (state, action: PayloadAction<string>) => {
+      state.query = action.payload;
     }
   }
 });
 
-export const { addTodo, deleteTodo, completeTodo, changeInput, changeFilter } =
-  todoSlice.actions;
+export const {
+  addTodo,
+  deleteTodo,
+  completeTodo,
+  changeInput,
+  changeFilter,
+  changeQuery
+} = todoSlice.actions;
 
 export default todoSlice.reducer;
