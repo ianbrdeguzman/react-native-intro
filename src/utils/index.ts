@@ -1,12 +1,24 @@
 import { Filter, Todo } from '../redux/features/todoSlice';
 
-export function filterTodos(todos: Todo[], filter: Filter) {
+export function queryTodos(todos: Todo[], query: string) {
+  return todos.filter((todo) =>
+    todo.title.toLowerCase().includes(query.toLowerCase())
+  );
+}
+
+export function filterTodos(
+  todos: Todo[],
+  filter: Filter,
+  query?: string
+): Todo[] {
   switch (filter) {
     case Filter.ALL:
-      return todos;
+      return query ? queryTodos(todos, query) : todos;
     case Filter.COMPLETED:
-      return todos.filter((todo) => todo.completed === true);
+      const completedTodos = todos.filter((todo) => todo.completed === true);
+      return query ? queryTodos(completedTodos, query) : completedTodos;
     case Filter.ACTIVE:
-      return todos.filter((todo) => todo.completed === false);
+      const activeTodos = todos.filter((todo) => todo.completed === false);
+      return query ? queryTodos(activeTodos, query) : activeTodos;
   }
 }
