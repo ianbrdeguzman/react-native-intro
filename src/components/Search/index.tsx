@@ -1,11 +1,5 @@
-import {
-  Keyboard,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View
-} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import { Keyboard, Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { changeQuery } from '../../redux/features/todoSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
@@ -29,7 +23,7 @@ export function Search() {
         onSubmitEditing={handleOnPress}
       />
       <Pressable style={styles.button} onPress={handleOnPress}>
-        <Text>O</Text>
+        <Icon name="search1" size={16} />
       </Pressable>
     </View>
   );
@@ -44,8 +38,9 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     padding: 8,
-    paddingLeft: 32,
+    paddingLeft: 40,
     borderWidth: 1,
+    borderColor: 'gray',
     borderRadius: 4
   },
   button: {
