@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Todo } from '../../redux/features/todoSlice';
 import Checkbox from 'expo-checkbox';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 interface TodoItemProps {
   item: Todo;
@@ -22,8 +23,8 @@ export function TodoItem({ onPress, item, onValueChange }: TodoItemProps) {
       >
         {item.title}
       </Text>
-      <Pressable onPress={onPress} style={styles.buttonContainer}>
-        <Text style={styles.button}> X </Text>
+      <Pressable onPress={onPress}>
+        <Icon name="delete" size={16} />
       </Pressable>
     </View>
   );
@@ -42,19 +43,12 @@ const styles = StyleSheet.create({
   todo: {
     flex: 1,
     marginLeft: 16,
-    fontSize: 16
+    fontSize: 16,
+    color: 'black'
   },
   completed: {
     color: 'gray',
     textDecorationStyle: 'solid',
     textDecorationLine: 'line-through'
-  },
-  buttonContainer: {
-    borderRadius: 50,
-    padding: 4,
-    backgroundColor: 'salmon'
-  },
-  button: {
-    color: 'white'
   }
 });
