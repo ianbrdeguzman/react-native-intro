@@ -1,17 +1,19 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useEffect } from 'react';
+import AppLoading from 'expo-app-loading';
 import { Header } from '../components/Header';
+import { useSplashScreen } from '../hooks/useSplashScreen';
 import { routes } from '../routes';
-import { initializeSplashScreen } from '../utils';
 import ListTodos from './ListTodos';
 
 const Stack = createNativeStackNavigator();
 
 export default function Main() {
-  useEffect(() => {
-    initializeSplashScreen();
-  }, []);
+  const isAppReady = useSplashScreen();
+
+  if (!isAppReady) {
+    return <AppLoading />;
+  }
 
   return (
     <NavigationContainer>
