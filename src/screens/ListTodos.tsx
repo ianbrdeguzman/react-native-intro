@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, StyleSheet, Text } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { FilterGroup } from '../components/Filter';
 import { Form } from '../components/Form';
 import { Search } from '../components/Search';
@@ -11,7 +11,7 @@ export default function ListTodos() {
   return (
     <KeyboardAvoidingView
       style={theme === Theme.DARK ? styles.containerDark : styles.container}
-      behavior="height"
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <FilterGroup />
       <Search />

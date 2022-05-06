@@ -1,4 +1,6 @@
 import { Filter, Todo } from '../redux/features/todoSlice';
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font';
 
 export function queryTodos(todos: Todo[], query: string) {
   return todos.filter((todo) =>
@@ -20,5 +22,23 @@ export function filterTodos(
     case Filter.ACTIVE:
       const activeTodos = todos.filter((todo) => todo.completed === false);
       return query ? queryTodos(activeTodos, query) : activeTodos;
+  }
+}
+
+export async function initializeSplashScreen() {
+  try {
+    await SplashScreen.preventAutoHideAsync();
+    await Font.loadAsync({
+      'Inter-Black': require('../../assets/fonts/Inter-Black.otf')
+    });
+
+    // simulate loading assets
+    setTimeout(async () => {
+      await SplashScreen.hideAsync();
+    }, 2000);
+  } catch (error) {
+    console.warn(error);
+  } finally {
+    return true;
   }
 }

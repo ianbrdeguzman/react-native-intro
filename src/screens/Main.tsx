@@ -1,17 +1,18 @@
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme
-} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useEffect } from 'react';
 import { Header } from '../components/Header';
-import { useAppTheme } from '../context/theme';
 import { routes } from '../routes';
+import { initializeSplashScreen } from '../utils';
 import ListTodos from './ListTodos';
 
 const Stack = createNativeStackNavigator();
 
 export default function Main() {
+  useEffect(() => {
+    initializeSplashScreen();
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator

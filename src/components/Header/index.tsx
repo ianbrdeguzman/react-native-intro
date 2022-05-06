@@ -19,7 +19,7 @@ export function Header({ navigation, back }: NativeStackHeaderProps) {
       <View style={styles.switchContainer}>
         <Switch
           style={styles.switch}
-          trackColor={{ false: '#03dac6', true: '#03dac6' }}
+          trackColor={{ false: '#ffd700', true: '#03dac6' }}
           ios_backgroundColor="#ffd700"
           thumbColor={theme === Theme.DARK ? '#00ffbb' : 'yellow'}
           onValueChange={setAppTheme}
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#f5f6f7',
-    fontSize: 24
+    fontSize: 24,
+    fontFamily: 'Inter-Black'
   },
   switchContainer: {
     flexDirection: 'row',
