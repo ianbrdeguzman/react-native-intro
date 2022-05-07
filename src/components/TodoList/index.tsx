@@ -6,7 +6,7 @@ import { TodoItem } from '../TodoItem';
 
 export function TodoList() {
   const dispatch = useAppDispatch();
-  const { todos, text, filter, query } = useAppSelector((state) => state.todo);
+  const { todos, filter, query } = useAppSelector((state) => state.todo);
 
   const handleDeleteTodo = (id: number) => {
     Alert.alert(
@@ -31,7 +31,6 @@ export function TodoList() {
     <FlatList
       data={filterTodos(todos, filter, query)}
       renderItem={renderItem}
-      style={styles.todoList}
     />
   ) : (
     <Text style={styles.text}>No Todos.</Text>
@@ -44,8 +43,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     color: 'darkgray'
-  },
-  todoList: {
-    marginBottom: 124
   }
 });

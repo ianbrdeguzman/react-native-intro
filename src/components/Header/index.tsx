@@ -1,6 +1,7 @@
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 import { Theme, useAppTheme } from '../../context/theme';
 
 export function Header({ navigation, back }: NativeStackHeaderProps) {
@@ -12,7 +13,7 @@ export function Header({ navigation, back }: NativeStackHeaderProps) {
     >
       {back && (
         <Pressable onPress={navigation.goBack}>
-          <Icon name="back" size={16} style={styles.back} color="#f5f6f7" />
+          <AntIcon name="back" size={16} style={styles.back} color="#f5f6f7" />
         </Pressable>
       )}
       <Text style={styles.title}>My Todo App</Text>
@@ -25,7 +26,7 @@ export function Header({ navigation, back }: NativeStackHeaderProps) {
           onValueChange={setAppTheme}
           value={theme === Theme.DARK ? true : false}
         />
-        <Icon
+        <FeatherIcon
           name={theme === Theme.DARK ? 'moon' : 'sun'}
           size={18}
           color={theme === Theme.DARK ? '#03dac6' : 'yellow'}
