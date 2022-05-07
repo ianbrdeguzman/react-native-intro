@@ -1,43 +1,70 @@
-import { Alert, FlatList, StyleSheet, Text } from 'react-native';
-import { completeTodo, deleteTodo, Todo } from '../../redux/features/todoSlice';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Filter, Todo } from '../../redux/features/todoSlice';
 import { filterTodos } from '../../utils';
+import { AddTodoButton } from '../AddTodoButton';
+import { FilterButtons } from '../FilterButtons';
+import { SearchBar } from '../SearchBar';
 import { TodoItem } from '../TodoItem';
 
-export function TodoList() {
-  const dispatch = useAppDispatch();
-  const { todos, filter, query } = useAppSelector((state) => state.todo);
+interface TodoListProps {
+  todos: Todo[];
+  filter: Filter;
+  query: string;
+  handleFilterOnPress: (filterItem: Filter) => void;
+  handleSearchOnChangeText: (text: string) => void;
+  handleSearchOnPress: () => void;
+  handleDeleteOnPress: (id: number) => void;
+  onValueChange: (item: Todo) => void;
+  handleAddTodoOnPress: () => void;
+}
 
-  const handleDeleteTodo = (id: number) => {
-    Alert.alert(
-      'Do you want to delete this Todo?',
-      `Delete "${todos[id].title}"`,
-      [
-        { text: 'Cancel', onPress: () => null },
-        { text: 'Delete', onPress: () => dispatch(deleteTodo(id)) }
-      ]
-    );
-  };
-
+export function TodoList({
+  todos,
+  filter,
+  query,
+  handleFilterOnPress,
+  handleSearchOnChangeText,
+  handleSearchOnPress,
+  handleDeleteOnPress,
+  onValueChange,
+  handleAddTodoOnPress
+}: TodoListProps) {
   const renderItem = ({ item }: { item: Todo }) => (
     <TodoItem
       item={item}
-      onPress={() => handleDeleteTodo(item.id)}
-      onValueChange={() => dispatch(completeTodo(item.id))}
+      onPress={() => handleDeleteOnPress(item.id)}
+      onValueChange={() => onValueChange(item)}
     />
   );
 
-  return todos.length > 0 ? (
-    <FlatList
-      data={filterTodos(todos, filter, query)}
-      renderItem={renderItem}
-    />
-  ) : (
-    <Text style={styles.text}>No Todos.</Text>
+  return (
+    <View style={styles.container}>
+      <FilterButtons
+        filter={filter}
+        handleFilterOnPress={handleFilterOnPress}
+      />
+      <SearchBar
+        value={query}
+        onChangeText={handleSearchOnChangeText}
+        onPress={handleSearchOnPress}
+      />
+      {todos.length > 0 ? (
+        <FlatList
+          data={filterTodos(todos, filter, query)}
+          renderItem={renderItem}
+        />
+      ) : (
+        <Text style={styles.text}>No Todos.</Text>
+      )}
+      <AddTodoButton handleAddTodoOnPress={handleAddTodoOnPress} />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   text: {
     marginTop: 24,
     textAlign: 'center',

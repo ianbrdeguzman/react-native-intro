@@ -1,72 +1,56 @@
 import Icon from 'react-native-vector-icons/AntDesign';
-import { Keyboard, Pressable, StyleSheet, TextInput, View } from 'react-native';
-import { changeQuery } from '../../redux/features/todoSlice';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { Theme, useAppTheme } from '../../context/theme';
 
-export function SearchBar() {
-  const dispatch = useAppDispatch();
-  const { query } = useAppSelector((state) => state.todo);
+interface SearchBarProps {
+  value: string;
+  onChangeText: (text: string) => void;
+  onPress: () => void;
+}
+
+export function SearchBar({ value, onChangeText, onPress }: SearchBarProps) {
   const { theme } = useAppTheme();
 
-  const handleOnPress = () => {
-    if (!query) return;
-    dispatch(changeQuery(query));
-    Keyboard.dismiss();
-  };
-
   return (
-    <View style={styles.container}>
+    <View style={styles(theme).container}>
       <TextInput
-        style={theme === Theme.DARK ? styles.inputDark : styles.input}
-        value={query}
+        style={styles(theme).input}
+        value={value}
         placeholder="Search"
-        placeholderTextColor={theme === Theme.DARK ? '#f5f6f7' : 'gray'}
-        onChangeText={(text) => dispatch(changeQuery(text))}
-        onSubmitEditing={handleOnPress}
+        placeholderTextColor="gray"
+        onChangeText={onChangeText}
+        onSubmitEditing={onPress}
       />
-      <Pressable style={styles.button} onPress={handleOnPress}>
-        <Icon
-          name="search1"
-          size={16}
-          color={theme === Theme.DARK ? '#f5f6f7' : 'gray'}
-        />
+      <Pressable style={styles(theme).button} onPress={onPress}>
+        <Icon name="search1" size={16} color="gray" />
       </Pressable>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 16,
-    flexDirection: 'row'
-  },
-  input: {
-    flex: 1,
-    padding: 16,
-    paddingLeft: 40,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
-    fontSize: 16,
-    backgroundColor: 'white'
-  },
-  inputDark: {
-    flex: 1,
-    padding: 16,
-    paddingLeft: 40,
-    borderWidth: 1,
-    borderColor: '#f5f6f7',
-    borderRadius: 4,
-    backgroundColor: '#272727',
-    color: '#f5f6f7'
-  },
-  button: {
-    padding: 8,
-    position: 'absolute',
-    left: 8,
-    top: 0,
-    bottom: 0,
-    justifyContent: 'center'
-  }
-});
+const styles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      marginVertical: 16,
+      flexDirection: 'row'
+    },
+    input: {
+      flex: 1,
+      padding: 16,
+      paddingLeft: 40,
+      borderWidth: 1,
+      borderColor: theme === Theme.DARK ? '#f5f6f7' : 'gray',
+      borderRadius: 4,
+      fontSize: 16,
+      backgroundColor: theme === Theme.DARK ? '#242526' : 'white',
+      color: theme === Theme.DARK ? '#f5f6f7' : 'black'
+    },
+    button: {
+      padding: 8,
+      position: 'absolute',
+      left: 8,
+      top: 0,
+      bottom: 0,
+      justifyContent: 'center'
+    }
+  });

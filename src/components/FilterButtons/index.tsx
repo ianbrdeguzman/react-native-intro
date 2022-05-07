@@ -1,9 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { changeFilter } from '../../redux/features/todoSlice';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { Theme, useAppTheme } from '../../context/theme';
 import { Filter } from '../../redux/features/todoSlice';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { Theme, useAppTheme } from '../../context/theme';
+
+interface FilterButtonsProps {
+  filter: Filter;
+  handleFilterOnPress: (filterItem: Filter) => void;
+}
 
 function getIcon(filter: Filter): string {
   switch (filter) {
@@ -16,31 +19,31 @@ function getIcon(filter: Filter): string {
   }
 }
 
-export function FilterButtons() {
-  const dispatch = useAppDispatch();
-  const { filter } = useAppSelector((state) => state.todo);
+export function FilterButtons({
+  filter,
+  handleFilterOnPress
+}: FilterButtonsProps) {
   const { theme } = useAppTheme();
 
   return (
-    <View style={styles().container}>
+    <View style={styles({ theme }).container}>
       {[Filter.ALL, Filter.COMPLETED, Filter.ACTIVE].map((filterItem) => {
+        const active = filter === filterItem;
         return (
           <TouchableOpacity
             key={filterItem}
             style={[
-              theme === Theme.DARK
-                ? styles(filterItem === filter).filterItemActiveDark
-                : styles(filterItem === filter).filterItemActive,
-              styles().filterItem
+              styles({ active, theme }).filterItem,
+              styles({ active, theme }).filterItemActive
             ]}
-            onPress={() => dispatch(changeFilter(filterItem))}
+            onPress={() => handleFilterOnPress(filterItem)}
           >
             <Icon
               name={getIcon(filterItem)}
               size={16}
-              color={filterItem === filter ? '#f5f6f7' : 'gray'}
+              color={active ? '#f5f6f7' : 'gray'}
             />
-            <Text style={styles(filterItem === filter).filterItemText}>
+            <Text style={styles({ active, theme }).filterItemText}>
               {filterItem}
             </Text>
           </TouchableOpacity>
@@ -50,7 +53,12 @@ export function FilterButtons() {
   );
 }
 
-const styles = (active?: boolean) =>
+interface StyleProps {
+  active?: boolean;
+  theme: Theme;
+}
+
+const styles = ({ active, theme }: StyleProps) =>
   StyleSheet.create({
     container: {
       flexDirection: 'row',
@@ -64,13 +72,12 @@ const styles = (active?: boolean) =>
       borderRadius: 50,
       paddingVertical: 2,
       paddingHorizontal: 16,
-      backgroundColor: active ? 'rebeccapurple' : 'transparent'
-    },
-    filterItemActiveDark: {
-      borderRadius: 50,
-      paddingVertical: 2,
-      paddingHorizontal: 16,
-      backgroundColor: active ? '#03dac6' : 'transparent'
+      backgroundColor:
+        active && theme === Theme.LIGHT
+          ? 'rebeccapurple'
+          : active && theme === Theme.DARK
+          ? '#03dac6'
+          : 'transparent'
     },
     filterItemText: {
       paddingLeft: 2,
