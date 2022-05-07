@@ -4,7 +4,7 @@ import { changeQuery } from '../../redux/features/todoSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { Theme, useAppTheme } from '../../context/theme';
 
-export function Search() {
+export function SearchBar() {
   const dispatch = useAppDispatch();
   const { query } = useAppSelector((state) => state.todo);
   const { theme } = useAppTheme();
@@ -43,15 +43,17 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    padding: 8,
+    padding: 16,
     paddingLeft: 40,
     borderWidth: 1,
     borderColor: 'gray',
-    borderRadius: 4
+    borderRadius: 4,
+    fontSize: 16,
+    backgroundColor: 'white'
   },
   inputDark: {
     flex: 1,
-    padding: 8,
+    padding: 16,
     paddingLeft: 40,
     borderWidth: 1,
     borderColor: '#f5f6f7',

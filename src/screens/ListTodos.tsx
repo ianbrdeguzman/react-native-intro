@@ -1,22 +1,28 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
-import { FilterGroup } from '../components/Filter';
-import { Form } from '../components/Form';
-import { Search } from '../components/Search';
+import { AddTodoButton } from '../components/AddTodoButton';
+import { FilterButtons } from '../components/FilterButtons';
+import { SearchBar } from '../components/SearchBar';
 import { TodoList } from '../components/TodoList';
 import { Theme, useAppTheme } from '../context/theme';
+import { routes } from '../routes';
+import { RootStackParamList } from '../routes';
 
 export default function ListTodos() {
   const { theme } = useAppTheme();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <KeyboardAvoidingView
       style={theme === Theme.DARK ? styles.containerDark : styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <FilterGroup />
-      <Search />
+      <FilterButtons />
+      <SearchBar />
       <TodoList />
-      <Form />
+      <AddTodoButton onPress={() => navigation.navigate(routes.add, {})} />
     </KeyboardAvoidingView>
   );
 }
@@ -30,6 +36,6 @@ const styles = StyleSheet.create({
   containerDark: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#18191a'
+    backgroundColor: '#000'
   }
 });

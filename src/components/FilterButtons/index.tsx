@@ -16,7 +16,7 @@ function getIcon(filter: Filter): string {
   }
 }
 
-export function FilterGroup() {
+export function FilterButtons() {
   const dispatch = useAppDispatch();
   const { filter } = useAppSelector((state) => state.todo);
   const { theme } = useAppTheme();
@@ -64,13 +64,13 @@ const styles = (active?: boolean) =>
       borderRadius: 50,
       paddingVertical: 2,
       paddingHorizontal: 16,
-      backgroundColor: active ? 'rebeccapurple' : undefined
+      backgroundColor: active ? 'rebeccapurple' : 'transparent'
     },
     filterItemActiveDark: {
       borderRadius: 50,
       paddingVertical: 2,
       paddingHorizontal: 16,
-      backgroundColor: active ? '#03dac6' : undefined
+      backgroundColor: active ? '#03dac6' : 'transparent'
     },
     filterItemText: {
       paddingLeft: 2,
