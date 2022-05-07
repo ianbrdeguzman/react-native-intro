@@ -6,11 +6,17 @@ import { Theme, useAppTheme } from '../../context/theme';
 
 interface TodoItemProps {
   item: Todo;
-  onPress: () => void;
+  handleDeleteOnPress: () => void;
+  handleEditOnPress: (id: number) => void;
   onValueChange: () => void;
 }
 
-export function TodoItem({ onPress, item, onValueChange }: TodoItemProps) {
+export function TodoItem({
+  handleDeleteOnPress,
+  handleEditOnPress,
+  item,
+  onValueChange
+}: TodoItemProps) {
   const { theme } = useAppTheme();
 
   return (
@@ -26,13 +32,23 @@ export function TodoItem({ onPress, item, onValueChange }: TodoItemProps) {
       >
         {item.title}
       </Text>
-      <Pressable onPress={onPress}>
-        <Icon
-          name="delete"
-          size={16}
-          color={theme === Theme.DARK ? '#f5f6f7' : '#18191a'}
-        />
-      </Pressable>
+      <View style={styles(theme).buttonsContainer}>
+        <Pressable onPress={() => handleEditOnPress(item.id)}>
+          <Icon
+            name="edit"
+            size={16}
+            color={theme === Theme.DARK ? '#f5f6f7' : '#18191a'}
+            style={styles(theme).button}
+          />
+        </Pressable>
+        <Pressable onPress={handleDeleteOnPress}>
+          <Icon
+            name="delete"
+            size={16}
+            color={theme === Theme.DARK ? '#f5f6f7' : '#18191a'}
+          />
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -57,5 +73,11 @@ const styles = (theme: Theme) =>
       color: 'gray',
       textDecorationStyle: 'solid',
       textDecorationLine: 'line-through'
+    },
+    buttonsContainer: {
+      flexDirection: 'row'
+    },
+    button: {
+      marginRight: 16
     }
   });

@@ -39,10 +39,20 @@ export const todoSlice = createSlice({
         ...state.todos,
         {
           id: state.todos.length,
-          title: action.payload,
+          title: action.payload.trim(),
           completed: false
         }
       ];
+      state.text = '';
+    },
+    updateTodo: (
+      state,
+      action: PayloadAction<{ id: number; title: string }>
+    ) => {
+      const todo = state.todos.find((todo) => todo.id === action.payload.id);
+      if (todo) {
+        todo.title = action.payload.title.trim();
+      }
       state.text = '';
     },
     deleteTodo: (state, action: PayloadAction<number>) => {
@@ -69,6 +79,7 @@ export const todoSlice = createSlice({
 
 export const {
   addTodo,
+  updateTodo,
   deleteTodo,
   completeTodo,
   changeInput,

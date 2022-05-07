@@ -1,5 +1,8 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Filter, Todo } from '../../redux/features/todoSlice';
+import { RootStackParamList, routes } from '../../routes';
 import { filterTodos } from '../../utils';
 import { AddTodoButton } from '../AddTodoButton';
 import { FilterButtons } from '../FilterButtons';
@@ -29,10 +32,18 @@ export function TodoList({
   onValueChange,
   handleAddTodoOnPress
 }: TodoListProps) {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const renderItem = ({ item }: { item: Todo }) => (
     <TodoItem
       item={item}
-      onPress={() => handleDeleteOnPress(item.id)}
+      handleEditOnPress={(id) =>
+        navigation.navigate(routes.edit, {
+          todoId: id
+        })
+      }
+      handleDeleteOnPress={() => handleDeleteOnPress(item.id)}
       onValueChange={() => onValueChange(item)}
     />
   );
