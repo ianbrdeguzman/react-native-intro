@@ -42,11 +42,11 @@ const styles = (theme: Theme) =>
       padding: 16,
       marginVertical: 16,
       fontSize: 16,
-      backgroundColor: theme === Theme.DARK ? '#3b3b3b' : '#dddddd',
+      backgroundColor: theme === Theme.DARK ? '#242526' : '#dddddd',
       borderRadius: 4,
       borderBottomWidth: 1,
       borderBottomColor: theme === Theme.DARK ? '#f5f6f7' : 'gray',
-      color: theme === Theme.DARK ? 'white' : '#272727'
+      color: theme === Theme.DARK ? 'white' : '#242526'
     },
     button: {
       paddingVertical: 8,

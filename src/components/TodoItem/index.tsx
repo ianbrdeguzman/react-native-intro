@@ -14,19 +14,14 @@ export function TodoItem({ onPress, item, onValueChange }: TodoItemProps) {
   const { theme } = useAppTheme();
 
   return (
-    <View
-      style={theme === Theme.DARK ? styles.containerDark : styles.container}
-    >
+    <View style={styles(theme).container}>
       <Checkbox
         value={item.completed}
         onValueChange={onValueChange}
         color={theme === Theme.DARK ? '#03dac6' : 'rebeccapurple'}
       />
       <Text
-        style={[
-          theme === Theme.DARK ? styles.textDark : styles.text,
-          item.completed && styles.completed
-        ]}
+        style={[styles(theme).text, item.completed && styles(theme).completed]}
         numberOfLines={2}
       >
         {item.title}
@@ -42,38 +37,25 @@ export function TodoItem({ onPress, item, onValueChange }: TodoItemProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    marginBottom: 8,
-    padding: 16,
-    borderRadius: 4
-  },
-  containerDark: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#272727',
-    marginBottom: 8,
-    padding: 16,
-    borderRadius: 4
-  },
-  text: {
-    flex: 1,
-    marginLeft: 16,
-    fontSize: 16,
-    color: '#18191a'
-  },
-  textDark: {
-    flex: 1,
-    marginLeft: 16,
-    fontSize: 16,
-    color: '#f5f6f7'
-  },
-  completed: {
-    color: 'gray',
-    textDecorationStyle: 'solid',
-    textDecorationLine: 'line-through'
-  }
-});
+const styles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: theme === Theme.DARK ? '#242526' : 'white',
+      marginBottom: 8,
+      padding: 16,
+      borderRadius: 4
+    },
+    text: {
+      flex: 1,
+      marginLeft: 16,
+      fontSize: 16,
+      color: theme === Theme.DARK ? '#f5f6f7' : '#18191a'
+    },
+    completed: {
+      color: 'gray',
+      textDecorationStyle: 'solid',
+      textDecorationLine: 'line-through'
+    }
+  });

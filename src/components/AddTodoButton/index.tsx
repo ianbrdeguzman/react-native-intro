@@ -3,14 +3,14 @@ import { Theme, useAppTheme } from '../../context/theme';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 interface AddTodoButtonProps {
-  onPress: () => void;
+  handleAddTodoOnPress: () => void;
 }
 
-export function AddTodoButton({ onPress }: AddTodoButtonProps) {
+export function AddTodoButton({ handleAddTodoOnPress }: AddTodoButtonProps) {
   const { theme } = useAppTheme();
 
   return (
-    <Pressable style={styles(theme).container} onPress={onPress}>
+    <Pressable style={styles(theme).container} onPress={handleAddTodoOnPress}>
       <Icon name="plus" size={32} color="#f5f6f7" />
     </Pressable>
   );

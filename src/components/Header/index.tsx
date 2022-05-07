@@ -8,18 +8,23 @@ export function Header({ navigation, back }: NativeStackHeaderProps) {
   const { theme, setAppTheme } = useAppTheme();
 
   return (
-    <View
-      style={theme === Theme.DARK ? styles.containerDark : styles.container}
-    >
-      {back && (
-        <Pressable onPress={navigation.goBack}>
-          <AntIcon name="back" size={16} style={styles.back} color="#f5f6f7" />
-        </Pressable>
-      )}
-      <Text style={styles.title}>My Todo App</Text>
-      <View style={styles.switchContainer}>
+    <View style={styles(theme).container}>
+      <View style={styles(theme).logoContainer}>
+        {back && (
+          <Pressable onPress={navigation.goBack}>
+            <AntIcon
+              name="back"
+              size={16}
+              style={styles(theme).back}
+              color="#f5f6f7"
+            />
+          </Pressable>
+        )}
+        <Text style={styles(theme).title}>My Todo App</Text>
+      </View>
+      <View style={styles(theme).switchContainer}>
         <Switch
-          style={styles.switch}
+          style={styles(theme).switch}
           trackColor={{ false: '#ffd700', true: '#03dac6' }}
           ios_backgroundColor="#ffd700"
           thumbColor={theme === Theme.DARK ? '#00ffbb' : 'yellow'}
@@ -36,37 +41,34 @@ export function Header({ navigation, back }: NativeStackHeaderProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 24,
-    padding: 16,
-    backgroundColor: 'rebeccapurple',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  containerDark: {
-    marginTop: 24,
-    padding: 16,
-    backgroundColor: '#242526',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  back: {
-    marginRight: 16
-  },
-  title: {
-    color: '#f5f6f7',
-    fontSize: 24,
-    fontFamily: 'Inter-Black'
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingRight: 8
-  },
-  switch: {
-    transform: [{ scale: 0.7 }]
-  }
-});
+const styles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      marginTop: 24,
+      padding: 16,
+      backgroundColor: theme === Theme.DARK ? '#242526' : 'rebeccapurple',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    },
+    logoContainer: {
+      flexDirection: 'row',
+      alignItems: 'center'
+    },
+    back: {
+      marginRight: 16
+    },
+    title: {
+      color: '#f5f6f7',
+      fontSize: 24,
+      fontFamily: 'Inter-Black'
+    },
+    switchContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingRight: 8
+    },
+    switch: {
+      transform: [{ scale: 0.7 }]
+    }
+  });
