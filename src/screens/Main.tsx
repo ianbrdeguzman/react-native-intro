@@ -1,13 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { Header } from '../components/Header';
 import { useSplashScreen } from '../hooks/useSplashScreen';
-import { routes } from '../routes';
+import { RootStackParamList, routes } from '../routes';
 import AddTodo from './AddTodo';
 import ListTodos from './ListTodos';
 import AppLoading from 'expo-app-loading';
+import EditTodo from './EditTodo';
 
-const Stack = createNativeStackNavigator();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 export default function Main() {
   const isAppReady = useSplashScreen();
@@ -16,15 +17,16 @@ export default function Main() {
     <AppLoading />
   ) : (
     <NavigationContainer>
-      <Stack.Navigator
+      <RootStack.Navigator
         initialRouteName={routes.list}
         screenOptions={{
-          header: (props) => <Header {...props} />
+          header: (props: any) => <Header {...props} />
         }}
       >
-        <Stack.Screen name={routes.list} component={ListTodos} />
-        <Stack.Screen name={routes.add} component={AddTodo} />
-      </Stack.Navigator>
+        <RootStack.Screen name={routes.list} component={ListTodos} />
+        <RootStack.Screen name={routes.add} component={AddTodo} />
+        <RootStack.Screen name={routes.edit} component={EditTodo} />
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }
