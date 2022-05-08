@@ -1,13 +1,14 @@
 import { View } from 'react-native';
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps
-} from '@react-navigation/native-stack';
 import { RootStackParamList, routes } from '../routes';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { TodoForm } from '../components/TodoForm';
 import { changeInput, updateTodo } from '../redux/features/todoSlice';
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps
+} from '@react-navigation/native-stack';
 
 export type EditTodoProps = NativeStackScreenProps<
   RootStackParamList,
@@ -15,6 +16,7 @@ export type EditTodoProps = NativeStackScreenProps<
 >;
 
 export default function EditTodo({ route }: EditTodoProps) {
+  const [showDetails, setShowDetails] = useState<boolean>(false);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const dispatch = useAppDispatch();
@@ -23,7 +25,7 @@ export default function EditTodo({ route }: EditTodoProps) {
   const [todo] = todos.filter((todo) => todo.id === todoId);
 
   const handleUpdateOnPress = () => {
-    dispatch(updateTodo({ id: todo.id, title: text }));
+    if (text) dispatch(updateTodo({ id: todo.id, title: text }));
     navigation.navigate(routes.list, {});
   };
 
@@ -34,6 +36,8 @@ export default function EditTodo({ route }: EditTodoProps) {
         value={text ? text : todo.title}
         onChangeText={(text) => dispatch(changeInput(text))}
         onPress={handleUpdateOnPress}
+        showDetails={showDetails}
+        setShowDetails={setShowDetails}
       />
     </View>
   );

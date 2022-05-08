@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Filter, Todo } from '../../redux/features/todoSlice';
 import { RootStackParamList, routes } from '../../routes';
-import { filterTodos } from '../../utils';
+import { filterTodos } from '../../utils/filter';
 import { AddTodoButton } from '../AddTodoButton';
 import { FilterButtons } from '../FilterButtons';
 import { SearchBar } from '../SearchBar';
@@ -16,7 +16,7 @@ interface TodoListProps {
   handleFilterOnPress: (filterItem: Filter) => void;
   handleSearchOnChangeText: (text: string) => void;
   handleSearchOnPress: () => void;
-  handleDeleteOnPress: (id: number) => void;
+  handleDeleteOnPress: (id: string) => void;
   onValueChange: (item: Todo) => void;
   handleAddTodoOnPress: () => void;
 }

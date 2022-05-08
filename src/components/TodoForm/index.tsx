@@ -1,19 +1,31 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Dispatch, SetStateAction } from 'react';
 import { Theme, useAppTheme } from '../../context/theme';
 import { Todo } from '../../redux/features/todoSlice';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Switch
+} from 'react-native';
 
 interface TodoFormProps {
   todo?: Todo;
   value: string;
   onChangeText: (text: string) => void;
   onPress: () => void;
+  showDetails?: boolean;
+  setShowDetails: Dispatch<SetStateAction<boolean>>;
 }
 
 export function TodoForm({
   todo,
   value,
   onChangeText,
-  onPress
+  onPress,
+  showDetails,
+  setShowDetails
 }: TodoFormProps) {
   const { theme } = useAppTheme();
 
@@ -26,7 +38,11 @@ export function TodoForm({
         <View>
           <View>
             <Text style={styles(theme).inputLabel}>Id</Text>
-            <TextInput style={styles(theme).input} value={todo.id.toString()} />
+            <TextInput
+              style={[styles(theme).input, styles(theme).inputDisabled]}
+              value={todo.id}
+              editable={false}
+            />
           </View>
           <View>
             <Text style={styles(theme).inputLabel}>Title</Text>
@@ -38,6 +54,54 @@ export function TodoForm({
               value={value}
             />
           </View>
+          <View style={styles(theme).switchContainer}>
+            <Text style={styles(theme).switchText}>Show Details</Text>
+            <Switch
+              style={styles(theme).switch}
+              thumbColor={theme === Theme.DARK ? '#00ffbb' : 'rebeccapurple'}
+              trackColor={{
+                false: '#dddddd',
+                true: theme === Theme.DARK ? '#03dac6' : '#8c53c6'
+              }}
+              ios_backgroundColor={
+                theme === Theme.DARK ? '#dddddd' : 'transparent'
+              }
+              value={showDetails}
+              onValueChange={setShowDetails}
+            />
+          </View>
+          {showDetails && (
+            <View>
+              <View>
+                <Text style={styles(theme).inputLabel}>Version</Text>
+                <TextInput
+                  style={[styles(theme).input, styles(theme).inputDisabled]}
+                  value={todo.version.toString()}
+                  editable={false}
+                />
+              </View>
+              <View>
+                <Text style={styles(theme).inputLabel}>Created At</Text>
+                <TextInput
+                  style={[styles(theme).input, styles(theme).inputDisabled]}
+                  value={new Date(todo.createdAt).toLocaleString()}
+                  editable={false}
+                />
+              </View>
+              <View>
+                <Text style={styles(theme).inputLabel}>Updated At</Text>
+                <TextInput
+                  style={[styles(theme).input, styles(theme).inputDisabled]}
+                  value={
+                    todo.updatedAt
+                      ? new Date(todo?.updatedAt).toLocaleString()
+                      : 'N/A'
+                  }
+                  editable={false}
+                />
+              </View>
+            </View>
+          )}
         </View>
       ) : (
         <TextInput
@@ -76,12 +140,27 @@ const styles = (theme: Theme) =>
       borderBottomColor: theme === Theme.DARK ? '#f5f6f7' : 'gray',
       color: theme === Theme.DARK ? 'white' : '#242526'
     },
+    inputDisabled: {
+      color: 'gray'
+    },
     inputLabel: {
       color: 'gray',
       position: 'absolute',
       top: 32,
       right: 16,
       zIndex: 1
+    },
+    switchContainer: {
+      marginTop: 16,
+      flexDirection: 'row',
+      alignItems: 'center'
+    },
+    switch: {
+      marginLeft: 8,
+      transform: [{ scale: 0.7 }]
+    },
+    switchText: {
+      color: 'gray'
     },
     button: {
       paddingVertical: 8,

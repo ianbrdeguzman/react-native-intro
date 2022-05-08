@@ -7,7 +7,7 @@ import { Theme, useAppTheme } from '../../context/theme';
 interface TodoItemProps {
   item: Todo;
   handleDeleteOnPress: () => void;
-  handleEditOnPress: (id: number) => void;
+  handleEditOnPress: (id: string) => void;
   onValueChange: () => void;
 }
 

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { nanoid } from '../../utils/nanoid';
 
 export enum Filter {
   ALL = 'all',
@@ -7,9 +8,12 @@ export enum Filter {
 }
 
 export interface Todo {
-  id: number;
+  id: string;
   title: string;
   completed: boolean;
+  version: number;
+  createdAt: number;
+  updatedAt?: number;
 }
 
 export interface InitialState {
@@ -21,9 +25,27 @@ export interface InitialState {
 
 const initialState: InitialState = {
   todos: [
-    { id: 0, title: 'buy groceries', completed: true },
-    { id: 1, title: 'wash car', completed: false },
-    { id: 2, title: 'study react native', completed: false }
+    {
+      id: nanoid(),
+      title: 'Buy groceries',
+      completed: true,
+      version: 1,
+      createdAt: Date.now()
+    },
+    {
+      id: nanoid(),
+      title: 'Wash car',
+      completed: false,
+      version: 1,
+      createdAt: Date.now()
+    },
+    {
+      id: nanoid(),
+      title: 'Study react native',
+      completed: false,
+      version: 1,
+      createdAt: Date.now()
+    }
   ],
   text: '',
   filter: Filter.ALL,
@@ -38,27 +60,31 @@ export const todoSlice = createSlice({
       state.todos = [
         ...state.todos,
         {
-          id: state.todos.length,
+          id: nanoid(),
           title: action.payload.trim(),
-          completed: false
+          completed: false,
+          version: 1,
+          createdAt: Date.now()
         }
       ];
       state.text = '';
     },
     updateTodo: (
       state,
-      action: PayloadAction<{ id: number; title: string }>
+      action: PayloadAction<{ id: string; title: string }>
     ) => {
       const todo = state.todos.find((todo) => todo.id === action.payload.id);
       if (todo) {
         todo.title = action.payload.title.trim();
+        todo.version = todo.version + 1;
+        todo.updatedAt = Date.now();
       }
       state.text = '';
     },
-    deleteTodo: (state, action: PayloadAction<number>) => {
+    deleteTodo: (state, action: PayloadAction<string>) => {
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
-    completeTodo: (state, action: PayloadAction<number>) => {
+    completeTodo: (state, action: PayloadAction<string>) => {
       state.todos = state.todos.map((todo) =>
         todo.id === action.payload
           ? { ...todo, completed: !todo.completed }
