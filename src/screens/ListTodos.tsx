@@ -11,8 +11,11 @@ import {
   changeQuery,
   completeTodo,
   deleteTodo,
-  Filter
+  Filter,
+  initTodos
 } from '../redux/features/todoSlice';
+import { useEffect } from 'react';
+import { loadData, saveData } from '../utils/storage';
 
 export default function ListTodos() {
   const dispatch = useAppDispatch();
@@ -49,6 +52,31 @@ export default function ListTodos() {
   const handleAddTodoOnPress = () => {
     navigation.navigate(routes.add, {});
   };
+
+  useEffect(() => {
+    async function initialize() {
+      try {
+        const todos = await loadData();
+        if (todos) dispatch(initTodos(todos));
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+
+    initialize();
+  }, []);
+
+  useEffect(() => {
+    async function saveTodosLocally() {
+      try {
+        await saveData(JSON.stringify(todos));
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+
+    saveTodosLocally();
+  }, [todos]);
 
   return (
     <View style={styles(theme).container}>

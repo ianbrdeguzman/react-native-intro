@@ -24,29 +24,7 @@ export interface InitialState {
 }
 
 const initialState: InitialState = {
-  todos: [
-    {
-      id: nanoid(),
-      title: 'Buy groceries',
-      completed: true,
-      version: 1,
-      createdAt: Date.now()
-    },
-    {
-      id: nanoid(),
-      title: 'Wash car',
-      completed: false,
-      version: 1,
-      createdAt: Date.now()
-    },
-    {
-      id: nanoid(),
-      title: 'Study react native',
-      completed: false,
-      version: 1,
-      createdAt: Date.now()
-    }
-  ],
+  todos: [],
   text: '',
   filter: Filter.ALL,
   query: ''
@@ -99,6 +77,9 @@ export const todoSlice = createSlice({
     },
     changeQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
+    },
+    initTodos: (state, action: PayloadAction<Todo[]>) => {
+      state.todos = action.payload;
     }
   }
 });
@@ -110,7 +91,8 @@ export const {
   completeTodo,
   changeInput,
   changeFilter,
-  changeQuery
+  changeQuery,
+  initTodos
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
