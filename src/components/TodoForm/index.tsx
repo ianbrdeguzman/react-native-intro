@@ -16,7 +16,7 @@ interface TodoFormProps {
   onChangeText: (text: string) => void;
   onPress: () => void;
   showDetails?: boolean;
-  setShowDetails: Dispatch<SetStateAction<boolean>>;
+  setShowDetails?: Dispatch<SetStateAction<boolean>>;
 }
 
 export function TodoForm({
@@ -48,7 +48,7 @@ export function TodoForm({
             <Text style={styles(theme).inputLabel}>Title</Text>
             <TextInput
               style={styles(theme).input}
-              placeholder="Title"
+              placeholder={todo ? todo.title : 'Title'}
               placeholderTextColor="gray"
               onChangeText={(text) => onChangeText(text)}
               value={value}

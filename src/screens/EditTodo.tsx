@@ -33,7 +33,7 @@ export default function EditTodo({ route }: EditTodoProps) {
     <View style={{ flex: 1 }}>
       <TodoForm
         todo={todo}
-        value={text ? text : todo.title}
+        value={text}
         onChangeText={(text) => dispatch(changeInput(text))}
         onPress={handleUpdateOnPress}
         showDetails={showDetails}

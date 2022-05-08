@@ -59,14 +59,11 @@ export function TodoList({
         onChangeText={handleSearchOnChangeText}
         onPress={handleSearchOnPress}
       />
-      {todos.length > 0 ? (
-        <FlatList
-          data={filterTodos(todos, filter, query)}
-          renderItem={renderItem}
-        />
-      ) : (
-        <Text style={styles.text}>No Todos.</Text>
-      )}
+      <FlatList
+        data={filterTodos(todos, filter, query)}
+        renderItem={renderItem}
+        ListEmptyComponent={<Text style={styles.text}>No Todos.</Text>}
+      />
       <AddTodoButton handleAddTodoOnPress={handleAddTodoOnPress} />
     </View>
   );
