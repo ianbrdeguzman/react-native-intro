@@ -1,8 +1,14 @@
 import { Dispatch, SetStateAction } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { Switch } from 'react-native-gesture-handler';
 import { Theme, useAppTheme } from '../../context/theme';
 import { Todo } from '../../redux/features/todoSlice';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Switch
+} from 'react-native';
 
 interface TodoFormProps {
   todo?: Todo;
@@ -52,6 +58,14 @@ export function TodoForm({
             <Text style={styles(theme).switchText}>Show Details</Text>
             <Switch
               style={styles(theme).switch}
+              thumbColor={theme === Theme.DARK ? '#00ffbb' : 'rebeccapurple'}
+              trackColor={{
+                false: '#dddddd',
+                true: theme === Theme.DARK ? '#03dac6' : '#8c53c6'
+              }}
+              ios_backgroundColor={
+                theme === Theme.DARK ? '#dddddd' : 'transparent'
+              }
               value={showDetails}
               onValueChange={setShowDetails}
             />
@@ -142,7 +156,8 @@ const styles = (theme: Theme) =>
       alignItems: 'center'
     },
     switch: {
-      marginLeft: 8
+      marginLeft: 8,
+      transform: [{ scale: 0.7 }]
     },
     switchText: {
       color: 'gray'
