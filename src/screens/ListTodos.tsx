@@ -35,10 +35,10 @@ export default function ListTodos() {
     Keyboard.dismiss();
   };
 
-  const handleDeleteOnPress = (id: number) => {
+  const handleDeleteOnPress = (id: string) => {
     Alert.alert(
       'Do you want to delete this Todo?',
-      `Delete "${todos[id].title}"`,
+      `Delete "${todos.find((todo) => todo.id === id)?.title}"`,
       [
         { text: 'Cancel', onPress: () => null },
         { text: 'Delete', onPress: () => dispatch(deleteTodo(id)) }

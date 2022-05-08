@@ -7,5 +7,5 @@ export const routes = {
 export type RootStackParamList = {
   [routes.list]: {};
   [routes.add]: {};
-  [routes.edit]: { todoId: number };
+  [routes.edit]: { todoId: string };
 };
