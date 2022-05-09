@@ -21,13 +21,17 @@ export interface InitialState {
   text: string;
   filter: Filter;
   query: string;
+  selected: Todo | null;
+  modal: boolean;
 }
 
 const initialState: InitialState = {
   todos: [],
   text: '',
   filter: Filter.ALL,
-  query: ''
+  query: '',
+  selected: null,
+  modal: false
 };
 
 export const todoSlice = createSlice({
@@ -78,8 +82,14 @@ export const todoSlice = createSlice({
     changeQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
+    changeSelected: (state, action: PayloadAction<Todo>) => {
+      state.selected = action.payload;
+    },
     initTodos: (state, action: PayloadAction<Todo[]>) => {
       state.todos = action.payload;
+    },
+    showModal: (state) => {
+      state.modal = !state.modal;
     }
   }
 });
@@ -92,7 +102,9 @@ export const {
   changeInput,
   changeFilter,
   changeQuery,
-  initTodos
+  changeSelected,
+  initTodos,
+  showModal
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

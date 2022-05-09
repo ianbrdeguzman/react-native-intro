@@ -1,14 +1,17 @@
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
+import { Theme, useAppTheme } from '../../context/theme';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import { Theme, useAppTheme } from '../../context/theme';
 
 export function Header({ navigation, back }: NativeStackHeaderProps) {
   const { theme, setAppTheme } = useAppTheme();
 
   return (
-    <View style={styles(theme).container}>
+    <SafeAreaView style={styles(theme).container}>
+      <StatusBar hidden={true} />
       <View style={styles(theme).logoContainer}>
         {back && (
           <Pressable onPress={navigation.goBack}>
@@ -37,14 +40,13 @@ export function Header({ navigation, back }: NativeStackHeaderProps) {
           color={theme === Theme.DARK ? '#03dac6' : 'yellow'}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      marginTop: 24,
       padding: 16,
       backgroundColor: theme === Theme.DARK ? '#242526' : 'rebeccapurple',
       flexDirection: 'row',

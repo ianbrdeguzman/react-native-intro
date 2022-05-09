@@ -1,36 +1,20 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Filter, Todo } from '../../redux/features/todoSlice';
+import { Todo } from '../../redux/features/todoSlice';
 import { RootStackParamList, routes } from '../../routes';
-import { filterTodos } from '../../utils/filter';
-import { AddTodoButton } from '../AddTodoButton';
-import { FilterButtons } from '../FilterButtons';
-import { SearchBar } from '../SearchBar';
 import { TodoItem } from '../TodoItem';
 
 interface TodoListProps {
   todos: Todo[];
-  filter: Filter;
-  query: string;
-  handleFilterOnPress: (filterItem: Filter) => void;
-  handleSearchOnChangeText: (text: string) => void;
-  handleSearchOnPress: () => void;
-  handleDeleteOnPress: (id: string) => void;
-  onValueChange: (item: Todo) => void;
-  handleAddTodoOnPress: () => void;
+  handleDeleteOnPress: (item: Todo) => void;
+  handleCheckboxOnChange: (item: Todo) => void;
 }
 
 export function TodoList({
   todos,
-  filter,
-  query,
-  handleFilterOnPress,
-  handleSearchOnChangeText,
-  handleSearchOnPress,
   handleDeleteOnPress,
-  onValueChange,
-  handleAddTodoOnPress
+  handleCheckboxOnChange
 }: TodoListProps) {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -43,28 +27,18 @@ export function TodoList({
           todoId: id
         })
       }
-      handleDeleteOnPress={() => handleDeleteOnPress(item.id)}
-      onValueChange={() => onValueChange(item)}
+      handleDeleteOnPress={() => handleDeleteOnPress(item)}
+      handleCheckboxOnChange={() => handleCheckboxOnChange(item)}
     />
   );
 
   return (
     <View style={styles.container}>
-      <FilterButtons
-        filter={filter}
-        handleFilterOnPress={handleFilterOnPress}
-      />
-      <SearchBar
-        value={query}
-        onChangeText={handleSearchOnChangeText}
-        onPress={handleSearchOnPress}
-      />
       <FlatList
-        data={filterTodos(todos, filter, query)}
+        data={todos}
         renderItem={renderItem}
         ListEmptyComponent={<Text style={styles.text}>No Todos.</Text>}
       />
-      <AddTodoButton handleAddTodoOnPress={handleAddTodoOnPress} />
     </View>
   );
 }
