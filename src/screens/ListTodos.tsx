@@ -5,28 +5,38 @@ import { Theme, useAppTheme } from '../context/theme';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { routes } from '../routes';
 import { RootStackParamList } from '../routes';
-import { Alert, Keyboard, StyleSheet, View } from 'react-native';
+import { Keyboard, StyleSheet, View } from 'react-native';
+import { useEffect, useMemo } from 'react';
+import { loadData, saveData } from '../utils/storage';
+import { ConfirmDeleteModal } from '../components/ConfirmDeleteModal';
+import { FilterButtons } from '../components/FilterButtons';
+import { filterTodos } from '../utils/filter';
+import { SearchBar } from '../components/SearchBar';
+import { AddTodoButton } from '../components/AddTodoButton';
 import {
   changeFilter,
   changeQuery,
+  changeSelected,
   completeTodo,
   deleteTodo,
   Filter,
-  initTodos
+  initTodos,
+  showModal,
+  Todo
 } from '../redux/features/todoSlice';
-import { useEffect } from 'react';
-import { loadData, saveData } from '../utils/storage';
 
 export default function ListTodos() {
   const dispatch = useAppDispatch();
   const { theme } = useAppTheme();
-  const { todos, filter, query } = useAppSelector((state) => state.todo);
+  const { todos, filter, query, selected, modal } = useAppSelector(
+    (state) => state.todo
+  );
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const handleFilterOnPress = (filterItem: Filter) => {
-    dispatch(changeFilter(filterItem));
+  const handleFilterOnPress = (filter: Filter) => {
+    dispatch(changeFilter(filter));
   };
 
   const handleSearchOnChangeText = (text: string) => {
@@ -38,19 +48,18 @@ export default function ListTodos() {
     Keyboard.dismiss();
   };
 
-  const handleDeleteOnPress = (id: string) => {
-    Alert.alert(
-      'Do you want to delete this Todo?',
-      `Delete "${todos.find((todo) => todo.id === id)?.title}"`,
-      [
-        { text: 'Cancel', onPress: () => null },
-        { text: 'Delete', onPress: () => dispatch(deleteTodo(id)) }
-      ]
-    );
+  const handleDeleteOnPress = (item: Todo) => {
+    dispatch(showModal());
+    dispatch(changeSelected(item));
   };
 
   const handleAddTodoOnPress = () => {
     navigation.navigate(routes.add, {});
+  };
+
+  const handleModalConfirmOnPress = () => {
+    if (selected) dispatch(deleteTodo(selected.id));
+    dispatch(showModal());
   };
 
   useEffect(() => {
@@ -78,19 +87,34 @@ export default function ListTodos() {
     saveTodosLocally();
   }, [todos]);
 
+  const filteredTodos = useMemo(() => {
+    return filterTodos(todos, filter, query);
+  }, [todos, filter, query]);
+
   return (
     <View style={styles(theme).container}>
-      <TodoList
-        todos={todos}
-        filter={filter}
-        query={query}
-        handleFilterOnPress={handleFilterOnPress}
-        handleSearchOnChangeText={handleSearchOnChangeText}
-        handleSearchOnPress={handleSearchOnPress}
-        handleDeleteOnPress={(id) => handleDeleteOnPress(id)}
-        onValueChange={(item) => dispatch(completeTodo(item.id))}
-        handleAddTodoOnPress={handleAddTodoOnPress}
+      <ConfirmDeleteModal
+        selected={selected}
+        visible={modal}
+        onRequestClose={() => dispatch(showModal())}
+        handleCancleOnpress={() => dispatch(showModal())}
+        handleConfirmOnPress={handleModalConfirmOnPress}
       />
+      <FilterButtons
+        filter={filter}
+        handleFilterOnPress={handleFilterOnPress}
+      />
+      <SearchBar
+        value={query}
+        onChangeText={handleSearchOnChangeText}
+        onPress={handleSearchOnPress}
+      />
+      <TodoList
+        todos={filteredTodos}
+        handleDeleteOnPress={(item) => handleDeleteOnPress(item)}
+        handleCheckboxOnChange={(item) => dispatch(completeTodo(item.id))}
+      />
+      <AddTodoButton handleAddTodoOnPress={handleAddTodoOnPress} />
     </View>
   );
 }

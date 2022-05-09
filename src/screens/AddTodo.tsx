@@ -14,8 +14,7 @@ export default function AddTodo() {
   const { text } = useAppSelector((state) => state.todo);
 
   const handleOnPress = () => {
-    if (!text) return;
-    dispatch(addTodo(text));
+    if (text) dispatch(addTodo(text));
     navigation.navigate(routes.list, {});
   };
 

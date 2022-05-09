@@ -1,21 +1,21 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Theme, useAppTheme } from '../../context/theme';
 import { Todo } from '../../redux/features/todoSlice';
 import Checkbox from 'expo-checkbox';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { Theme, useAppTheme } from '../../context/theme';
 
 interface TodoItemProps {
   item: Todo;
   handleDeleteOnPress: () => void;
   handleEditOnPress: (id: string) => void;
-  onValueChange: () => void;
+  handleCheckboxOnChange: () => void;
 }
 
 export function TodoItem({
   handleDeleteOnPress,
   handleEditOnPress,
   item,
-  onValueChange
+  handleCheckboxOnChange
 }: TodoItemProps) {
   const { theme } = useAppTheme();
 
@@ -23,7 +23,7 @@ export function TodoItem({
     <View style={styles(theme).container}>
       <Checkbox
         value={item.completed}
-        onValueChange={onValueChange}
+        onValueChange={handleCheckboxOnChange}
         color={theme === Theme.DARK ? '#03dac6' : 'rebeccapurple'}
       />
       <Text
@@ -61,7 +61,12 @@ const styles = (theme: Theme) =>
       backgroundColor: theme === Theme.DARK ? '#242526' : 'white',
       marginBottom: 8,
       padding: 16,
-      borderRadius: 4
+      borderRadius: 4,
+      shadowColor: theme === Theme.DARK ? 'white' : '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      elevation: 6
     },
     text: {
       flex: 1,
