@@ -1,8 +1,8 @@
 {
-  "name": "intro-react-native",
+  "name": "intro-react-todo-app",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
-  "homepage": "https://ianbrdeguzman.github.io/react-native-intro/",
+  "homepage": "https://ianbrdeguzman.github.io/react-native-todo-app/",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
