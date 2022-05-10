@@ -2,6 +2,7 @@
   "name": "intro-react-native",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "homepage": "https://ianbrdeguzman.github.io/react-native-intro/",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
