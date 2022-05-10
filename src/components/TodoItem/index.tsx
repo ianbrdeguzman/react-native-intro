@@ -3,6 +3,7 @@ import { Theme, useAppTheme } from '../../context/theme';
 import { Todo } from '../../redux/features/todoSlice';
 import Checkbox from 'expo-checkbox';
 import Icon from 'react-native-vector-icons/AntDesign';
+import GlobalStyles from '../../utils/GlobalStyles';
 
 interface TodoItemProps {
   item: Todo;
@@ -27,7 +28,11 @@ export function TodoItem({
         color={theme === Theme.DARK ? '#03dac6' : 'rebeccapurple'}
       />
       <Text
-        style={[styles(theme).text, item.completed && styles(theme).completed]}
+        style={[
+          GlobalStyles().font,
+          styles(theme).text,
+          item.completed && styles(theme).completed
+        ]}
         numberOfLines={2}
       >
         {item.title}

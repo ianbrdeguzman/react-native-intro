@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import AntIcon from 'react-native-vector-icons/AntDesign';
+import GlobalStyles from '../../utils/GlobalStyles';
 
 export function Header({ navigation, back }: NativeStackHeaderProps) {
   const { theme, setAppTheme } = useAppTheme();
@@ -23,7 +24,9 @@ export function Header({ navigation, back }: NativeStackHeaderProps) {
             />
           </Pressable>
         )}
-        <Text style={styles(theme).title}>My Todo App</Text>
+        <Text style={[GlobalStyles().fontBold, styles(theme).title]}>
+          My Todo App
+        </Text>
       </View>
       <View style={styles(theme).switchContainer}>
         <Switch
@@ -48,10 +51,10 @@ const styles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       padding: 16,
-      backgroundColor: theme === Theme.DARK ? '#242526' : 'rebeccapurple',
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      backgroundColor: theme === Theme.DARK ? '#242526' : 'rebeccapurple'
     },
     logoContainer: {
       flexDirection: 'row',
@@ -61,9 +64,8 @@ const styles = (theme: Theme) =>
       marginRight: 16
     },
     title: {
-      color: '#f5f6f7',
       fontSize: 24,
-      fontFamily: 'Inter-Black'
+      color: '#f5f6f7'
     },
     switchContainer: {
       flexDirection: 'row',

@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Theme, useAppTheme } from '../../context/theme';
 import { Todo } from '../../redux/features/todoSlice';
+import GlobalStyles from '../../utils/GlobalStyles';
 import {
   Pressable,
   StyleSheet,
@@ -37,25 +38,36 @@ export function TodoForm({
       {todo ? (
         <View>
           <View>
-            <Text style={styles(theme).inputLabel}>Id</Text>
+            <Text style={[GlobalStyles().fontBold, styles(theme).inputLabel]}>
+              Id
+            </Text>
             <TextInput
-              style={[styles(theme).input, styles(theme).inputDisabled]}
+              style={[
+                GlobalStyles().font,
+                styles(theme).input,
+                styles(theme).inputDisabled
+              ]}
               value={todo.id}
               editable={false}
             />
           </View>
           <View>
-            <Text style={styles(theme).inputLabel}>Title</Text>
+            <Text style={[GlobalStyles().fontBold, styles(theme).inputLabel]}>
+              Title
+            </Text>
             <TextInput
-              style={styles(theme).input}
+              style={[GlobalStyles().font, styles(theme).input]}
               placeholder={todo ? todo.title : 'Title'}
               placeholderTextColor="gray"
               onChangeText={(text) => onChangeText(text)}
               value={value}
+              autoFocus={true}
             />
           </View>
           <View style={styles(theme).switchContainer}>
-            <Text style={styles(theme).switchText}>Show Details</Text>
+            <Text style={[GlobalStyles().font, styles(theme).switchText]}>
+              Show Details
+            </Text>
             <Switch
               style={styles(theme).switch}
               thumbColor={theme === Theme.DARK ? '#00ffbb' : 'rebeccapurple'}
@@ -73,25 +85,49 @@ export function TodoForm({
           {showDetails && (
             <View>
               <View>
-                <Text style={styles(theme).inputLabel}>Version</Text>
+                <Text
+                  style={[GlobalStyles().fontBold, styles(theme).inputLabel]}
+                >
+                  Version
+                </Text>
                 <TextInput
-                  style={[styles(theme).input, styles(theme).inputDisabled]}
+                  style={[
+                    GlobalStyles().font,
+                    styles(theme).input,
+                    styles(theme).inputDisabled
+                  ]}
                   value={todo.version.toString()}
                   editable={false}
                 />
               </View>
               <View>
-                <Text style={styles(theme).inputLabel}>Created At</Text>
+                <Text
+                  style={[GlobalStyles().fontBold, styles(theme).inputLabel]}
+                >
+                  Created At
+                </Text>
                 <TextInput
-                  style={[styles(theme).input, styles(theme).inputDisabled]}
+                  style={[
+                    GlobalStyles().font,
+                    styles(theme).input,
+                    styles(theme).inputDisabled
+                  ]}
                   value={new Date(todo.createdAt).toLocaleString()}
                   editable={false}
                 />
               </View>
               <View>
-                <Text style={styles(theme).inputLabel}>Updated At</Text>
+                <Text
+                  style={[GlobalStyles().fontBold, styles(theme).inputLabel]}
+                >
+                  Updated At
+                </Text>
                 <TextInput
-                  style={[styles(theme).input, styles(theme).inputDisabled]}
+                  style={[
+                    GlobalStyles().font,
+                    styles(theme).input,
+                    styles(theme).inputDisabled
+                  ]}
                   value={
                     todo.updatedAt
                       ? new Date(todo?.updatedAt).toLocaleString()
@@ -110,6 +146,7 @@ export function TodoForm({
           placeholderTextColor="gray"
           onChangeText={(text) => onChangeText(text)}
           value={value}
+          autoFocus={true}
         />
       )}
       <Pressable style={styles(theme).button} onPress={onPress}>

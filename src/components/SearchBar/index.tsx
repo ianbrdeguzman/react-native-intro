@@ -1,6 +1,7 @@
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { Theme, useAppTheme } from '../../context/theme';
+import GlobalStyles from '../../utils/GlobalStyles';
 
 interface SearchBarProps {
   value: string;
@@ -14,7 +15,7 @@ export function SearchBar({ value, onChangeText, onPress }: SearchBarProps) {
   return (
     <View style={styles(theme).container}>
       <TextInput
-        style={styles(theme).input}
+        style={[GlobalStyles().font, styles(theme).input]}
         value={value}
         placeholder="Search"
         placeholderTextColor="gray"
