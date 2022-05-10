@@ -34,6 +34,5 @@ jobs:
       - name: Deploy web build
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
-          token: ${{ secrets.react-native-todo-app}}
           branch: gh-pages
           folder: web-build
