@@ -1,0 +1,33 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: CI
+    branches:
+      - main
+    types:
+      - completed
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.0
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Expo app
+        run: expo build:web
+
+       - name: Deploy web build
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: web-build
