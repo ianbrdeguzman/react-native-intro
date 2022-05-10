@@ -24,8 +24,9 @@ jobs:
         run: yarn install
 
       - name: Install Expo
-        run: yarn global add expo-cli
-        run: yarn global add sharp-cli
+        run: |
+          yarn global add expo-cli
+          yarn global add sharp-cli
 
       - name: Build Expo app
         run: expo build:web
