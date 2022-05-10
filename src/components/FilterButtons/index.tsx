@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Theme, useAppTheme } from '../../context/theme';
 import { Filter } from '../../redux/features/todoSlice';
 import Icon from 'react-native-vector-icons/AntDesign';
+import GlobalStyles from '../../utils/GlobalStyles';
 
 interface FilterButtonsProps {
   filter: Filter;
@@ -43,7 +44,12 @@ export function FilterButtons({
               size={16}
               color={active ? '#f5f6f7' : 'gray'}
             />
-            <Text style={styles({ active, theme }).filterItemText}>
+            <Text
+              style={[
+                GlobalStyles(theme).font,
+                styles({ active, theme }).filterItemText
+              ]}
+            >
               {filterItem}
             </Text>
           </TouchableOpacity>
