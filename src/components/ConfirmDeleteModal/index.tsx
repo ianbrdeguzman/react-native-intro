@@ -22,6 +22,7 @@ export function ConfirmDeleteModal({
   return (
     <View>
       <Modal
+        testID="modal"
         visible={visible}
         transparent={true}
         onRequestClose={onRequestClose}

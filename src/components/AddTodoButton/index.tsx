@@ -10,7 +10,11 @@ export function AddTodoButton({ handleAddTodoOnPress }: AddTodoButtonProps) {
   const { theme } = useAppTheme();
 
   return (
-    <Pressable style={styles(theme).container} onPress={handleAddTodoOnPress}>
+    <Pressable
+      style={styles(theme).container}
+      onPress={handleAddTodoOnPress}
+      testID="add-button"
+    >
       <Icon name="plus" size={32} color="#f5f6f7" />
     </Pressable>
   );
