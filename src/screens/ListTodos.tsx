@@ -1,12 +1,11 @@
+import React, { useEffect, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Keyboard, StyleSheet, View } from 'react-native';
 import { TodoList } from '../components/TodoList';
 import { Theme, useAppTheme } from '../context/theme';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { routes } from '../routes';
-import { RootStackParamList } from '../routes';
-import { Keyboard, StyleSheet, View } from 'react-native';
-import { useEffect, useMemo } from 'react';
+import { routes, RootStackParamList } from '../routes';
 import { loadData, saveData } from '../utils/storage';
 import { ConfirmDeleteModal } from '../components/ConfirmDeleteModal';
 import { FilterButtons } from '../components/FilterButtons';
@@ -87,9 +86,10 @@ export default function ListTodos() {
     saveTodosLocally();
   }, [todos]);
 
-  const filteredTodos = useMemo(() => {
-    return filterTodos(todos, filter, query);
-  }, [todos, filter, query]);
+  const filteredTodos = useMemo(
+    () => filterTodos(todos, filter, query),
+    [todos, filter, query]
+  );
 
   return (
     <View style={styles(theme).container}>

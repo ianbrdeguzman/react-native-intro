@@ -1,6 +1,7 @@
+import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import { Theme, useAppTheme } from '../../context/theme';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { Theme, useAppTheme } from '../../context/theme';
 
 interface AddTodoButtonProps {
   handleAddTodoOnPress: () => void;

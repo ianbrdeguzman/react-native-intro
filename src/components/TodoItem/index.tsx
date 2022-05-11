@@ -1,8 +1,9 @@
+import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Theme, useAppTheme } from '../../context/theme';
-import { Todo } from '../../redux/features/todoSlice';
 import Checkbox from 'expo-checkbox';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { Theme, useAppTheme } from '../../context/theme';
+import { Todo } from '../../redux/features/todoSlice';
 import GlobalStyles from '../../utils/GlobalStyles';
 
 interface TodoItemProps {

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Theme, useAppTheme } from '../../context/theme';
 import { Todo } from '../../redux/features/todoSlice';
@@ -24,7 +25,7 @@ export function ConfirmDeleteModal({
       <Modal
         testID="modal"
         visible={visible}
-        transparent={true}
+        transparent
         onRequestClose={onRequestClose}
       >
         <View style={styles(theme).container}>

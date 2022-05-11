@@ -1,14 +1,14 @@
+import React, { useState } from 'react';
 import { View } from 'react-native';
-import { RootStackParamList, routes } from '../routes';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { TodoForm } from '../components/TodoForm';
-import { changeInput, updateTodo } from '../redux/features/todoSlice';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
 import {
   NativeStackNavigationProp,
   NativeStackScreenProps
 } from '@react-navigation/native-stack';
+import { RootStackParamList, routes } from '../routes';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { TodoForm } from '../components/TodoForm';
+import { changeInput, updateTodo } from '../redux/features/todoSlice';
 
 export type EditTodoProps = NativeStackScreenProps<
   RootStackParamList,

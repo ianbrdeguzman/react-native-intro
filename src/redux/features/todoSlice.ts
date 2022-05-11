@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { nanoid } from '../../utils/nanoid';
+import nanoid from '../../utils/nanoid';
 
 export enum Filter {
   ALL = 'all',
@@ -58,7 +58,7 @@ export const todoSlice = createSlice({
       const todo = state.todos.find((todo) => todo.id === action.payload.id);
       if (todo) {
         todo.title = action.payload.title.trim();
-        todo.version = todo.version + 1;
+        todo.version += 1;
         todo.updatedAt = Date.now();
       }
       state.text = '';

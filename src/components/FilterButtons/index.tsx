@@ -1,7 +1,8 @@
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 import { Theme, useAppTheme } from '../../context/theme';
 import { Filter } from '../../redux/features/todoSlice';
-import Icon from 'react-native-vector-icons/AntDesign';
 import GlobalStyles from '../../utils/GlobalStyles';
 
 interface FilterButtonsProps {
@@ -17,6 +18,8 @@ function getIcon(filter: Filter): string {
       return 'checksquareo';
     case Filter.ACTIVE:
       return 'exclamationcircleo';
+    default:
+      return 'filter';
   }
 }
 
@@ -46,7 +49,7 @@ export function FilterButtons({
             />
             <Text
               style={[
-                GlobalStyles(theme).font,
+                GlobalStyles().font,
                 styles({ active, theme }).filterItemText
               ]}
             >
