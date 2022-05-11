@@ -1,7 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
-import { Theme, useAppTheme } from '../../context/theme';
-import { Todo } from '../../redux/features/todoSlice';
-import GlobalStyles from '../../utils/GlobalStyles';
+import React, { Dispatch, SetStateAction } from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -10,6 +7,9 @@ import {
   View,
   Switch
 } from 'react-native';
+import { Theme, useAppTheme } from '../../context/theme';
+import { Todo } from '../../redux/features/todoSlice';
+import GlobalStyles from '../../utils/GlobalStyles';
 
 interface TodoFormProps {
   todo?: Todo;
@@ -61,7 +61,7 @@ export function TodoForm({
               placeholderTextColor="gray"
               onChangeText={(text) => onChangeText(text)}
               value={value}
-              autoFocus={true}
+              autoFocus
             />
           </View>
           <View style={styles(theme).switchContainer}>
@@ -146,7 +146,7 @@ export function TodoForm({
           placeholderTextColor="gray"
           onChangeText={(text) => onChangeText(text)}
           value={value}
-          autoFocus={true}
+          autoFocus
         />
       )}
       <Pressable style={styles(theme).button} onPress={onPress}>

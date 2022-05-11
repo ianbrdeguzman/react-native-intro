@@ -24,5 +24,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Execute linting
+        run: yarn lint
+
       - name: Execute unit test
         run: yarn test

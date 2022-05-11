@@ -1,11 +1,12 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import AppLoading from 'expo-app-loading';
 import { Header } from '../components/Header';
 import { useSplashScreen } from '../hooks/useSplashScreen';
 import { RootStackParamList, routes } from '../routes';
 import AddTodo from './AddTodo';
 import ListTodos from './ListTodos';
-import AppLoading from 'expo-app-loading';
 import EditTodo from './EditTodo';
 
 const RootStack = createStackNavigator<RootStackParamList>();

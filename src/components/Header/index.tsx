@@ -1,10 +1,11 @@
+import React from 'react';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
-import { Theme, useAppTheme } from '../../context/theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import AntIcon from 'react-native-vector-icons/AntDesign';
+import { Theme, useAppTheme } from '../../context/theme';
 import GlobalStyles from '../../utils/GlobalStyles';
 
 export function Header({ navigation, back }: NativeStackHeaderProps) {
@@ -12,7 +13,7 @@ export function Header({ navigation, back }: NativeStackHeaderProps) {
 
   return (
     <SafeAreaView style={styles(theme).container}>
-      <StatusBar hidden={true} />
+      <StatusBar hidden />
       <View style={styles(theme).logoContainer}>
         {back && (
           <Pressable onPress={navigation.goBack}>
@@ -35,7 +36,7 @@ export function Header({ navigation, back }: NativeStackHeaderProps) {
           ios_backgroundColor="#ffd700"
           thumbColor={theme === Theme.DARK ? '#00ffbb' : 'yellow'}
           onValueChange={setAppTheme}
-          value={theme === Theme.DARK ? true : false}
+          value={theme === Theme.DARK}
         />
         <FeatherIcon
           name={theme === Theme.DARK ? 'moon' : 'sun'}

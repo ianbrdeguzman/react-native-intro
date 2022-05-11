@@ -12,13 +12,19 @@ export function filterTodos(
   query?: string
 ): Todo[] {
   switch (filter) {
-    case Filter.ALL:
+    case Filter.ALL: {
       return query ? queryTodos(todos, query) : todos;
-    case Filter.COMPLETED:
+    }
+    case Filter.COMPLETED: {
       const completedTodos = todos.filter((todo) => todo.completed === true);
       return query ? queryTodos(completedTodos, query) : completedTodos;
-    case Filter.ACTIVE:
+    }
+    case Filter.ACTIVE: {
       const activeTodos = todos.filter((todo) => todo.completed === false);
       return query ? queryTodos(activeTodos, query) : activeTodos;
+    }
+    default: {
+      return todos;
+    }
   }
 }

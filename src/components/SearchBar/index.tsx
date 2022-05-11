@@ -1,3 +1,4 @@
+import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { Theme, useAppTheme } from '../../context/theme';

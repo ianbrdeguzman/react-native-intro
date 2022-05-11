@@ -1,3 +1,4 @@
+import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { ConfirmDeleteModal } from '.';
 import { Todo } from '../../redux/features/todoSlice';
@@ -18,7 +19,7 @@ describe('<ConfirmDeleteModal />', () => {
     const { getByTestId, getByText } = render(
       <ConfirmDeleteModal
         selected={mockTodo}
-        visible={true}
+        visible
         onRequestClose={mockOnClose}
         handleCancleOnpress={mockOnCancel}
         handleConfirmOnPress={mockOnConfirm}
