@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -16,19 +16,16 @@ interface TodoFormProps {
   value: string;
   onChangeText: (text: string) => void;
   onPress: () => void;
-  showDetails?: boolean;
-  setShowDetails?: Dispatch<SetStateAction<boolean>>;
 }
 
 export function TodoForm({
   todo,
   value,
   onChangeText,
-  onPress,
-  showDetails,
-  setShowDetails
+  onPress
 }: TodoFormProps) {
   const { theme } = useAppTheme();
+  const [showDetails, setShowDetails] = useState<boolean>(false);
 
   return (
     <View style={styles(theme).container}>
@@ -47,7 +44,8 @@ export function TodoForm({
                 styles(theme).input,
                 styles(theme).inputDisabled
               ]}
-              value={todo.id}
+              placeholder={todo.id}
+              placeholderTextColor="gray"
               editable={false}
             />
           </View>
@@ -96,7 +94,8 @@ export function TodoForm({
                     styles(theme).input,
                     styles(theme).inputDisabled
                   ]}
-                  value={todo.version.toString()}
+                  placeholder={todo.version.toString()}
+                  placeholderTextColor="gray"
                   editable={false}
                 />
               </View>
@@ -112,7 +111,8 @@ export function TodoForm({
                     styles(theme).input,
                     styles(theme).inputDisabled
                   ]}
-                  value={new Date(todo.createdAt).toLocaleString()}
+                  placeholder={new Date(todo.createdAt).toLocaleString()}
+                  placeholderTextColor="gray"
                   editable={false}
                 />
               </View>
@@ -128,11 +128,12 @@ export function TodoForm({
                     styles(theme).input,
                     styles(theme).inputDisabled
                   ]}
-                  value={
+                  placeholder={
                     todo.updatedAt
                       ? new Date(todo?.updatedAt).toLocaleString()
                       : 'N/A'
                   }
+                  placeholderTextColor="gray"
                   editable={false}
                 />
               </View>
