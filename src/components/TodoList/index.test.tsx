@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { TodoList } from '.';
 import { NavigationContainer } from '@react-navigation/native';
+import { TodoList } from '.';
 
 describe('<TodoList />', () => {
   test('renders correctly with 0 todos', () => {
