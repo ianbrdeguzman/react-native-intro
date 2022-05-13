@@ -86,8 +86,6 @@ export default function ListTodos() {
     [todos, filter, query]
   );
 
-  console.log(todos);
-
   return (
     <View style={styles(theme).container}>
       <ConfirmDeleteModal
