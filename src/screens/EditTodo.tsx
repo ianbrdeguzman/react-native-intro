@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -16,7 +16,6 @@ export type EditTodoProps = NativeStackScreenProps<
 >;
 
 export default function EditTodo({ route }: EditTodoProps) {
-  const [showDetails, setShowDetails] = useState<boolean>(false);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const dispatch = useAppDispatch();
@@ -36,8 +35,6 @@ export default function EditTodo({ route }: EditTodoProps) {
         value={text}
         onChangeText={(text) => dispatch(changeInput(text))}
         onPress={handleUpdateOnPress}
-        showDetails={showDetails}
-        setShowDetails={setShowDetails}
       />
     </View>
   );

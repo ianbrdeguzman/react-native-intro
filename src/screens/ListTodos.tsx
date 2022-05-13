@@ -42,11 +42,6 @@ export default function ListTodos() {
     dispatch(changeQuery(text));
   };
 
-  const handleSearchOnPress = () => {
-    dispatch(changeQuery(query));
-    Keyboard.dismiss();
-  };
-
   const handleDeleteOnPress = (item: Todo) => {
     dispatch(showModal());
     dispatch(changeSelected(item));
@@ -91,6 +86,8 @@ export default function ListTodos() {
     [todos, filter, query]
   );
 
+  console.log(todos);
+
   return (
     <View style={styles(theme).container}>
       <ConfirmDeleteModal
@@ -107,7 +104,7 @@ export default function ListTodos() {
       <SearchBar
         value={query}
         onChangeText={handleSearchOnChangeText}
-        onPress={handleSearchOnPress}
+        onPress={() => Keyboard.dismiss()}
       />
       <TodoList
         todos={filteredTodos}
