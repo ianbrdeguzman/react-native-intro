@@ -22,7 +22,7 @@ export function TodoItem({
   const { theme } = useAppTheme();
 
   return (
-    <View style={styles(theme).container}>
+    <View style={styles(theme).container} testID="todo-item">
       <Checkbox
         value={item.completed}
         onValueChange={handleCheckboxOnChange}
@@ -39,7 +39,10 @@ export function TodoItem({
         {item.title}
       </Text>
       <View style={styles(theme).buttonsContainer}>
-        <Pressable onPress={() => handleEditOnPress(item.id)}>
+        <Pressable
+          onPress={() => handleEditOnPress(item.id)}
+          testID="edit-button"
+        >
           <Icon
             name="edit"
             size={16}
@@ -47,7 +50,7 @@ export function TodoItem({
             style={styles(theme).button}
           />
         </Pressable>
-        <Pressable onPress={handleDeleteOnPress}>
+        <Pressable onPress={handleDeleteOnPress} testID="delete-button">
           <Icon
             name="delete"
             size={16}
