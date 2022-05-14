@@ -55,18 +55,18 @@ Todo App built with React Native (Expo) for learning purposes.
 
 ## Features Implemented
 
-- [ ] Splash Screen
-- [ ] Custom Font
-- [ ] Light and Dark Theme
-- [ ] Filter Todos
-- [ ] Search Todos
-- [ ] Add Todos
-- [ ] Update Todos
-- [ ] Delete Todos
-- [ ] Toggle Complete
-- [ ] Local Storage
-- [ ] Unit Testing
-- [ ] CICD GH Actions
+- [x] Splash Screen
+- [x] Custom Font
+- [x] Light and Dark Theme
+- [x] Filter Todos
+- [x] Search Todos
+- [x] Add Todos
+- [x] Update Todos
+- [x] Delete Todos
+- [x] Toggle Complete
+- [x] Local Storage
+- [x] Unit Testing
+- [x] CICD GH Actions
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
